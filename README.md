@@ -12,6 +12,10 @@ Installation of docker-compose.yaml
 
 curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.3.2/docker-compose.yaml'
 
+Initialize the database
+
+docker-compose up airflow-init
+
 # Tips and tutorials:
 https://github.com/himewel/weather_gather
 https://airflow.apache.org/docs/apache-airflow/stable/tutorial.html
