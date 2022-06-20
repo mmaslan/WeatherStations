@@ -1,2 +1,2 @@
-pyowm
-datetime
+pyowm~=3.3.0
+datetime~=4.4
