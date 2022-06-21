@@ -14,7 +14,7 @@ def get_weather():
 
         createDirectory()
 
-        filename = 'data/' + str(datetime.now().date) + '.json'
+        filename = "data/" + str(datetime.now().date()) + '.json'
 
         with open(filename, 'w') as file:
             print(filename)
