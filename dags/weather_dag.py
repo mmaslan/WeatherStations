@@ -1,19 +1,16 @@
 import os
 import json
 import statistics
-
 import requests
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
 
-day = datetime.today().strftime("%m%d20%y")
-currentDateAndTime = datetime.now()
-currentTime = currentDateAndTime.strftime("%H:%M")
+day = datetime.today().strftime("%m%d20%y%H%M")
 
 
 def get_weather():
-    parameters = {'q': 'Gdansk', 'appid': '588237482f885cef420a4fa9796cd1b9'}
+    parameters = {f'q': 'Gdansk', 'appid': '588237482f885cef420a4fa9796cd1b9'}
 
     result = requests.get('http://api.openweathermap.org/data/2.5/weather?', parameters)
 
@@ -22,7 +19,7 @@ def get_weather():
 
         createDirectory()
 
-        filename = 'data//weather_data.json'
+        filename = f'data//weather_data_{day}.json'
 
         with open(filename, 'w') as file:
             print(filename)
@@ -48,7 +45,7 @@ def createDirectory():
 
 
 def measure_mean():
-    with open('C:\\Users\\marek\\Desktop\\WeatherStationsTest\\dags\\data\\weather_data.json', 'r') as file2:
+    with open(f'C:\\Users\\marek\\Desktop\\WeatherStationsTest\\dags\\data\\weather_data_{day}.json', 'r') as file2:
         data = json.load(file2)
         main = (data['main'])
         pressure = (main['pressure'])
@@ -65,10 +62,12 @@ if __name__ == '__main__':
     get_weather()
     measure_mean()
 
+
 dag = DAG(
     dag_id='weather_report',
     start_date=datetime(2022, 6, 22),
-    schedule_interval='@hourly')
+    schedule_interval='@hourly'
+)
 
 task1 = PythonOperator(
     task_id='get_weather',
@@ -81,5 +80,6 @@ task2 = PythonOperator(
     python_callable=measure_mean,
     dag=dag
 )
+
 
 task1 >> task2
