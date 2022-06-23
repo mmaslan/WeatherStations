@@ -19,3 +19,5 @@ docker-compose up airflow-init
 # Tips and tutorials:
 https://github.com/himewel/weather_gather
 https://airflow.apache.org/docs/apache-airflow/stable/tutorial.html
+https://hackernoon.com/data-pipelines-openweathermap-airflow-a-how-to-guide-cs5b3aje
+https://github.com/ashish-gh/ETL_Data_Pipeline_Airflow/tree/master/dags
