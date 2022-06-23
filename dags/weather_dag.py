@@ -9,8 +9,8 @@ from datetime import datetime
 day = datetime.today().strftime("%m%d20%y%H%M")
 
 
-def get_weather():
-    parameters = {f'q': 'Gdansk', 'appid': '588237482f885cef420a4fa9796cd1b9'}
+def get_weather(city):
+    parameters = {f'q': {city}, 'appid': '588237482f885cef420a4fa9796cd1b9'}
 
     result = requests.get('http://api.openweathermap.org/data/2.5/weather?', parameters)
 
@@ -19,7 +19,7 @@ def get_weather():
 
         createDirectory()
 
-        filename = f'data//weather_data_{day}.json'
+        filename = f'data//weather_{city}_{day}.json'
 
         with open(filename, 'w') as file:
             print(filename)
@@ -44,8 +44,8 @@ def createDirectory():
             print('Directory', dirName, 'already exists')
 
 
-def measure_mean():
-    with open(f'C:\\Users\\marek\\Desktop\\WeatherStationsTest\\dags\\data\\weather_data_{day}.json', 'r') as file2:
+def measure_mean(city):
+    with open(f'C:\\Users\\marek\\Desktop\\WeatherStationsTest\\dags\\data\\weather_{city}_{day}.json', 'r') as file2:
         data = json.load(file2)
         main = (data['main'])
         pressure = (main['pressure'])
@@ -58,9 +58,27 @@ def measure_mean():
         print(f'Mean pressure is: {mean_pressure}')
 
 
+def weather_gdansk():
+    return get_weather('Gdansk')
+
+
+def weather_warsaw():
+    return get_weather('Warsaw')
+
+
+def mean_gdansk():
+    return measure_mean('Gdansk')
+
+
+def mean_warsaw():
+    return measure_mean('Warsaw')
+
+
 if __name__ == '__main__':
-    get_weather()
-    measure_mean()
+    weather_gdansk()
+    weather_warsaw()
+    mean_gdansk()
+    mean_warsaw()
 
 
 dag = DAG(
@@ -70,16 +88,28 @@ dag = DAG(
 )
 
 task1 = PythonOperator(
-    task_id='get_weather',
-    python_callable=get_weather,
+    task_id='weather_gdansk',
+    python_callable=weather_gdansk,
     dag=dag
 )
 
 task2 = PythonOperator(
     task_id="measure_mean",
-    python_callable=measure_mean,
+    python_callable=weather_warsaw,
     dag=dag
 )
 
+task3 = PythonOperator(
+    task_id="mean_gdansk",
+    python_callable=mean_gdansk,
+    dag=dag
+)
+
+task4 = PythonOperator(
+    task_id="mean_warsaw",
+    python_callable=mean_warsaw,
+    dag=dag
+)
 
 task1 >> task2
+task3 >> task4
