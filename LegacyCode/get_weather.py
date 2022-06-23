@@ -20,7 +20,7 @@ def get_weather():
             print(filename)
             json.dump(json_data, file)
             print(json_data)
-            print("closing file . . . ")
+            print("closing file...")
 
     else:
         print("Error in Api Call")
