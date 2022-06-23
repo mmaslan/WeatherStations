@@ -22,10 +22,9 @@ def get_weather(city):
         filename = f'data//weather_{city}_{day}.json'
 
         with open(filename, 'w') as file:
-            print(filename)
+            print(f"Weather data in {city}:")
             json.dump(json_data, file)
             print(json_data)
-            print("closing file...")
 
     else:
         print("Error in Api Call")
