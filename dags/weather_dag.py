@@ -44,7 +44,6 @@ def createDirectory():
 
 
 def measure_mean(city):
-    # with open(f'C:\\Users\\marek\\Desktop\\WeatherStationsTest\\dags\\data\\weather_{city}_{day}.json', 'r') as file2:
     filename = f'data/weather_{city}_{day}.json'
     with open(os.path.join(filename), 'r') as file2:
         data = json.load(file2)
