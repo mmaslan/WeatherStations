@@ -1,23 +1,19 @@
-# WeatherStationsTest
-Sandbox for work with Apache Airflow.
-
-
+# WeatherStations
 # Installation guide
 
-Apache Airflow installation
+**Create virtual environment:**
+
+virtualenv venv
+
+**Apache Airflow installation**
 
 pip install "apache-airflow[celery]==2.3.2" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.3.2/constraints-3.10.txt"
 
-Installation of docker-compose.yaml
+**Installation of docker-compose.yaml**
 
 curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.3.2/docker-compose.yaml'
 
-Initialize the database
+**Initialize the database**
 
 docker-compose up airflow-init
 
-# Tips and tutorials:
-https://github.com/himewel/weather_gather
-https://airflow.apache.org/docs/apache-airflow/stable/tutorial.html
-https://hackernoon.com/data-pipelines-openweathermap-airflow-a-how-to-guide-cs5b3aje
-https://github.com/ashish-gh/ETL_Data_Pipeline_Airflow/tree/master/dags

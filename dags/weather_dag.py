@@ -2,10 +2,8 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
 
-from dags.mean_data import measure_mean
-from dags.weather_data import get_weather
-
-day = datetime.today().strftime("%m%d20%y%H%M")
+from mean_data import measure_mean
+from weather_data import get_weather
 
 
 def weather_gdansk():
@@ -32,7 +30,7 @@ if __name__ == '__main__':
 
 dag = DAG(
     dag_id='weather_report',
-    start_date=datetime(2022, 6, 22),
+    start_date=datetime(2022, 6, 24),
     schedule_interval='@hourly'
 )
 
@@ -53,7 +51,6 @@ task3 = PythonOperator(
     python_callable=weather_warsaw,
     dag=dag
 )
-
 
 task4 = PythonOperator(
     task_id="mean_warsaw",
