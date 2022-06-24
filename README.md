@@ -1,6 +1,8 @@
 # WeatherStations
 # Installation guide
 
+Application requires Docker in order to work properly.
+
 **Create virtual environment:**
 
 virtualenv venv
