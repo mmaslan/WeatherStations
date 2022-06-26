@@ -1,3 +1,4 @@
+import os
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
@@ -28,10 +29,17 @@ if __name__ == '__main__':
     mean_gdansk()
     mean_warsaw()
 
+
+default_args = {
+    "start_date": "2022-06-24",
+    "depends_on_past": False,
+    "retries": 10,
+}
+
 dag = DAG(
     dag_id='weather_report',
     start_date=datetime(2022, 6, 24),
-    schedule_interval='@hourly'
+    schedule_interval='@hourly',
 )
 
 task1 = PythonOperator(
@@ -59,5 +67,4 @@ task4 = PythonOperator(
 )
 
 task1 >> task2
-
 task3 >> task4

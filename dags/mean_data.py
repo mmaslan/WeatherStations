@@ -3,18 +3,18 @@ import json
 import statistics
 from datetime import datetime
 
-day = datetime.today().strftime("%m%d20%y%H%M")
+day = datetime.today().strftime("%m%d20%y%H")
 
 
 def measure_mean(city):
-    filename = f'data/weather_{city}_{day}.json'
+    filename = f'weather_{city}_{day}.json'
     with open(os.path.join(filename), 'r') as file2:
         data = json.load(file2)
         main = (data['main'])
         pressure = (main['pressure'])
         print(f'Pressure is: {pressure}')
 
-        pressure_file = f'data/pressure_{city}.json'
+        pressure_file = f'pressure_{city}.json'
         with open(os.path.join(pressure_file), 'r') as pfile:
             avg_pressure = json.load(pfile)
             print(f'Average pressure is: {avg_pressure}')
